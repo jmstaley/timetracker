@@ -8,4 +8,6 @@ def index(request):
 
 @login_required
 def dashboard(request):
-    return render_to_response('timetracker/dashboard.html')
+    tasks = Task.objects.filter(author__id=request.user.id)
+    return render_to_response('timetracker/dashboard.html',
+                              {'tasks': tasks})

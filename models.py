@@ -1,9 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Task(models.Model):
     """ Simple task for tracking time worked """
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    author = models.ForeignKey(User)
     
     def __unicode__(self):
         return u'%s' % self.title
