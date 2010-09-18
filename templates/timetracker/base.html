@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Timetracker{% endblock %}</title>
+  </head>
+  <body>
+    <div id="header">
+      <h1>Timetracker</h1>
+      <div id="tools">
+        <ul>
+          <li><a href="dashboard/">Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
