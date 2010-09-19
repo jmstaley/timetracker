@@ -2,7 +2,7 @@
 {% block content %}
   <ul>
     {% for task in tasks %}
-      <li>{{ task.title }}</li>
+      <li><a href="/tracker/task/detail/{{ task.id }}">{{ task.title }}</a> Total time spent: {{ task.total_time_worked }}</li>
     {% endfor %}
   </ul>
 {% endblock %}

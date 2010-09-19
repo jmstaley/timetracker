@@ -1,0 +1,11 @@
+{% extends "timetracker/base.html" %}
+{% block content %}
+<h2>{{ task.title }}</h2>
+<p>Time spent: {{ task.total_time_worked }}</p>
+<p>Work breakdown:</p>
+<ul>
+  {% for work in task.work %}
+    <li> {{ work.description }} {{ work.duration }} </li>
+  {% endfor %}
+</ul>
+{% endblock %}
