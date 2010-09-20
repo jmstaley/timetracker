@@ -25,8 +25,9 @@ class Task(models.Model):
         work = Work.objects.filter(task=self)
         return work
 
+    @models.permalink
     def get_absolute_url(self):
-        return '/tracker/task/detail/%s' % self.id
+        return ('task_detail', [self.id])
 
 class Work(models.Model):
     """ Work to be attached to a task """
