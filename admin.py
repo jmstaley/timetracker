@@ -2,7 +2,9 @@ from django.contrib import admin
 from models import Task, Work
 
 class TaskAdmin(admin.ModelAdmin):
-    pass
+    fieldsets = ( (None, {'fields': ('title', 'description', 'author')}),
+                  ('Extra info', {'classes': ('collapse',),
+                                  'fields': ('due_date',)}) )
 
 admin.site.register(Task, TaskAdmin)
 

@@ -1,3 +1,4 @@
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 
@@ -10,10 +11,12 @@ def index(request):
 def dashboard(request):
     tasks = Task.objects.filter(author__id=request.user.id)
     return render_to_response('timetracker/dashboard.html',
-                              {'tasks': tasks})
+                              {'tasks': tasks},
+                              context_instance = RequestContext(request))
 
 @login_required
 def task_detail(request, task_id):
     task = Task.objects.get(id=task_id, author__id=request.user.id)
     return render_to_response('timetracker/task_detail.html', 
-                              {'task': task})
+                              {'task': task},
+                              context_instance = RequestContext(request))

@@ -9,6 +9,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     author = models.ForeignKey(User)
+    due_date = models.DateField(blank=True, null=True)
     
     def __unicode__(self):
         return u'%s' % self.title
@@ -23,6 +24,9 @@ class Task(models.Model):
     def work(self):
         work = Work.objects.filter(task=self)
         return work
+
+    def get_absolute_url(self):
+        return '/tracker/task/detail/%s' % self.id
 
 class Work(models.Model):
     """ Work to be attached to a task """

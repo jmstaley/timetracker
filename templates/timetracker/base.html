@@ -8,7 +8,10 @@
       <h1>Timetracker</h1>
       <div id="tools">
         <ul>
-          <li><a href="dashboard/">Login</a></li>
+          {% if user.is_authenticated %}
+            <li>{{ user.username }}</li>
+          {% endif %}
+          <li><a href="/tracker/dashboard/">dashboard</a></li>
         </ul>
       </div>
     </div>
