@@ -1,7 +1,9 @@
 {% extends "timetracker/base.html" %}
 {% block content %}
 <h2>{{ task.title }}</h2>
+<p>{{ task.description }}</p>
 <p>Time spent: {{ task.total_time_worked }}</p>
+<p><a href="{% url add_work task.id %}">Add Work</a></p>
 <p>Work breakdown:</p>
 <ul>
   {% for work in task.work %}
