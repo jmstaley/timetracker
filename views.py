@@ -7,7 +7,8 @@ from models import Task
 from forms import AddTaskForm, AddWorkForm
 
 def index(request):
-    return render_to_response('timetracker/index.html')
+    return render_to_response('timetracker/index.html',
+                              context_instance = RequestContext(request))
 
 @login_required
 def dashboard(request):

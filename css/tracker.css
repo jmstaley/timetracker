@@ -1,0 +1,77 @@
+body {
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+div#header {
+    background-color: #000000;
+    color: #FFFFFF;
+    position: relative;
+}
+
+div#header h1 {
+  margin: 0;
+  padding: 10px;
+}
+
+div#user_tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+div#user_tools a {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+div#user_tools a:hover {
+  text-decoration: underline;
+}
+
+div#user_tools ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+div#user_tools li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+}
+
+table.taskstable {
+  margin: 0 auto 0 auto;
+  padding: 10px;
+  width: 50%;
+}
+
+table.taskstable a {
+  color: #000000;
+  text-decoration: underline;
+}
+
+table.taskstable a:hover {
+  text-decoration: none;
+}
+
+table.taskstable tr.even {
+  background-color: #dddddd;
+}
+
+table.taskstable tr.odd {
+  background-color: #eeeeee;
+}
+
+table.taskstable tr.taskrow td {
+  padding: 5px;
+}
+
+table.taskstable tr.taskrow td.time {
+  text-align: right;
+  width: 150px;
+}

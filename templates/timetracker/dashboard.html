@@ -1,8 +1,15 @@
 {% extends "timetracker/base.html" %}
 {% block content %}
-  <ul>
+  <table class="taskstable">
+    <tr>
+      <th>Task</th>
+      <th>Time spent</th>
+    </tr>
     {% for task in tasks %}
-      <li><a href="{{ task.get_absolute_url }}">{{ task.title }}</a> Total time spent: {{ task.total_time_worked }}</li>
+      <tr class="taskrow {% cycle 'even' 'odd' %}">
+        <td class="task"><a href="{{ task.get_absolute_url }}">{{ task.title }}</a></td> 
+        <td class="time">{{ task.total_time_worked }}</td>
+      </tr>
     {% endfor %}
-  </ul>
+  </table>
 {% endblock %}
