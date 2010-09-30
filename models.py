@@ -10,6 +10,7 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     author = models.ForeignKey(User)
     due_date = models.DateField(blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
     
     def __unicode__(self):
         return u'%s' % self.title
@@ -36,6 +37,7 @@ class Work(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     task = models.ForeignKey(Task)
+    creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
     
     def __unicode__(self):
         return u'%s %s' % (self.task.title, self.date)
