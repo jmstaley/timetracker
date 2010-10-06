@@ -7,22 +7,22 @@
   <body>
     <div id="header">
       <h1>Timetracker</h1>
+    </div>
+    <div id="content">
       <div id="user_tools">
         <ul>
           {% if user.is_authenticated %}
             <li>{{ user.username }}</li>
+            <li><a href="{% url dashboard %}">dashboard</a></li>
+            <li class="last"><a href="{% url add_task %}">add task</a></li>
+          {% else %}
+            <li><a href="#">login</a></li>
           {% endif %}
-          <li><a href="{% url dashboard %}">dashboard</a></li>
         </ul>
       </div>
-    </div>
-    <div id="content">
-      {% if user.is_authenticated %}
-        <div id="task_tools">
-          <a href="{% url add_task %}">Add Task</a>
-        </div>
-      {% endif %}
-      {% block content %}{% endblock %}
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
     </div>
   </body>
 </html>

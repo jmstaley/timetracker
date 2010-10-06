@@ -7,8 +7,9 @@
     </tr>
     {% for task in tasks %}
       <tr class="taskrow {% cycle 'even' 'odd' %}">
-        <td class="task"><a href="{{ task.get_absolute_url }}">{{ task.title }}</a></td> 
+        <td class="task">{{ task.title }}</td> 
         <td class="time">{{ task.total_time_worked }}</td>
+        <td class="edit"><a href="{{ task.get_absolute_url }}">edit</a></td>
       </tr>
     {% endfor %}
   </table>
