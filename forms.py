@@ -6,7 +6,7 @@ from models import Task, Work
 class AddTaskForm(ModelForm):
     class Meta:
         model = Task
-        exclude = ('author',)
+        exclude = ('author', 'uid')
         widgets = {'due_date': SelectDateWidget()}
 
 class AddWorkForm(ModelForm):

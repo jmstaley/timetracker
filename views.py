@@ -19,7 +19,7 @@ def dashboard(request):
 
 @login_required
 def task_detail(request, task_id):
-    task = Task.objects.get(id=task_id, author__id=request.user.id)
+    task = Task.objects.get(uid=task_id, author__id=request.user.id)
     return render_to_response('timetracker/task_detail.html', 
                               {'task': task},
                               context_instance = RequestContext(request))
@@ -45,7 +45,7 @@ def add_work(request, task_id):
         form = AddWorkForm(data=request.POST)
         if form.is_valid():
             new_work = form.save(commit=False)
-            task = Task.objects.get(id=task_id, author__id=request.user.id)
+            task = Task.objects.get(uid=task_id, author__id=request.user.id)
             new_work.task = task
             new_work.save()
             return HttpResponseRedirect(task.get_absolute_url())

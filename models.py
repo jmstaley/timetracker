@@ -11,9 +11,15 @@ class Task(models.Model):
     author = models.ForeignKey(User)
     due_date = models.DateField(blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
+    uid = models.IntegerField()
     
     def __unicode__(self):
         return u'%s' % self.title
+
+    def save(self, force_insert=False, force_update=False):
+        current_tasks = Task.objects.filter(author__id=self.author.id)
+        self.uid = len(current_tasks)+1
+        super(Task, self).save(force_insert, force_update)
 
     def total_time_worked(self):
         work = self.work()
@@ -28,7 +34,7 @@ class Task(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('task_detail', [], {'task_id': self.id})
+        return ('task_detail', [], {'task_id': self.uid})
 
 class Work(models.Model):
     """ Work to be attached to a task """
@@ -38,6 +44,12 @@ class Work(models.Model):
     end_time = models.TimeField()
     task = models.ForeignKey(Task)
     creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
+    tid = models.IntegerField()
+
+    def save(self, force_insert=False, force_update=False):
+        current_work = Work.objects.filter(task__id=self.task.id)
+        self.tid = len(current_work)+1
+        super(Work, self).save(force_insert, force_update)
     
     def __unicode__(self):
         return u'%s %s' % (self.task.title, self.date)
