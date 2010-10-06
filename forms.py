@@ -12,5 +12,5 @@ class AddTaskForm(ModelForm):
 class AddWorkForm(ModelForm):
     class Meta:
         model = Work
-        exclude = ('task', )
+        exclude = ('task', 'tid')
         widgets = {'date': SelectDateWidget(),}

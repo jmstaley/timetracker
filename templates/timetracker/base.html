@@ -17,9 +17,11 @@
       </div>
     </div>
     <div id="content">
-      <div id="task_tools">
-        <a href="{% url add_task %}">Add Task</a>
-      </div>
+      {% if user.is_authenticated %}
+        <div id="task_tools">
+          <a href="{% url add_task %}">Add Task</a>
+        </div>
+      {% endif %}
       {% block content %}{% endblock %}
     </div>
   </body>

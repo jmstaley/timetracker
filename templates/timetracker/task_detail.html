@@ -2,12 +2,21 @@
 {% block content %}
 <h2>{{ task.title }}</h2>
 <p>{{ task.description }}</p>
-<p>Time spent: {{ task.total_time_worked }}</p>
+<p>Total time spent: {{ task.total_time_worked }}</p>
 <p><a href="{% url add_work task.id %}">Add Work</a></p>
 <p>Work breakdown:</p>
-<ul>
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Duration</th>
+    <th>Date</th>
+  </tr>
   {% for work in task.work %}
-    <li> {{ work.description }} {{ work.duration }} </li>
+    <tr>
+      <td>{{ work.description }}</td> 
+      <td>{{ work.duration }}</td>
+      <td>{{ work.date|date:"d/m/Y" }}</td>
+    </tr>
   {% endfor %}
-</ul>
+</table>
 {% endblock %}
