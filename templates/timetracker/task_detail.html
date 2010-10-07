@@ -1,22 +1,26 @@
 {% extends "timetracker/base.html" %}
 {% block content %}
-<h2>{{ task.title }}</h2>
-<p>{{ task.description }}</p>
-<p>Total time spent: {{ task.total_time_worked }}</p>
-<p><a href="{% url add_work task.id %}">Add Work</a></p>
-<p>Work breakdown:</p>
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Duration</th>
-    <th>Date</th>
-  </tr>
-  {% for work in task.work %}
+<h2 class="header">{{ task.title }}</h2>
+<div id="taskdetails">
+  <p>{{ task.description }}</p>
+  <p>Total time spent: {{ task.total_time_worked }}</p>
+</div>
+<h3>Work</h3>
+<div id="workdetails">
+  <p><a href="{% url add_work task.id %}">Add Work</a></p>
+  <table>
     <tr>
-      <td>{{ work.description }}</td> 
-      <td>{{ work.duration }}</td>
-      <td>{{ work.date|date:"d/m/Y" }}</td>
+      <th>Description</th>
+      <th>Duration</th>
+      <th>Date</th>
     </tr>
-  {% endfor %}
-</table>
+    {% for work in task.work %}
+      <tr>
+        <td>{{ work.description }}</td> 
+        <td>{{ work.duration }}</td>
+        <td>{{ work.date|date:"d/m/Y" }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
 {% endblock %}

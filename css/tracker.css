@@ -16,6 +16,26 @@ div#header h1 {
   padding: 10px;
 }
 
+h3,
+h2.header {
+  margin: 5px;
+}
+
+div#maincontent {
+  margin: 10px 125px 10px 10px;
+}
+
+div#workdetails,
+div#taskdetails {
+  border: 1px solid #cccccc;
+  padding: 5px;
+}
+
+div#workdetails p,
+div#taskdetails p {
+  margin: 5px;
+}
+
 div#user_tools {
   border: 1px solid #000000;
   float: right;
