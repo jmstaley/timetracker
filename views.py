@@ -35,13 +35,14 @@ def add_task(request):
             return HttpResponseRedirect(new_task.get_absolute_url())
     else:
         form = AddTaskForm()
-        return render_to_response('timetracker/add_task.html',
-                                  {'form': form},
-                                  context_instance = RequestContext(request))
+    return render_to_response('timetracker/add_task.html',
+                              {'form': form},
+                              context_instance = RequestContext(request))
 
 @login_required
 def add_work(request, task_id):
     if request.method == 'POST':
+        from pdb import set_trace; set_trace()
         form = AddWorkForm(data=request.POST)
         if form.is_valid():
             new_work = form.save(commit=False)
@@ -51,6 +52,6 @@ def add_work(request, task_id):
             return HttpResponseRedirect(task.get_absolute_url())
     else:
         form = AddWorkForm()
-        return render_to_response('timetracker/add_work.html',
-                                  {'form': form},
-                                  context_instance = RequestContext(request))
+    return render_to_response('timetracker/add_work.html',
+                              {'form': form},
+                              context_instance = RequestContext(request))

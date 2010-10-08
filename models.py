@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 
+from fields import DurationWidget
+
 class Task(models.Model):
     """ Simple task for tracking time worked """
     title = models.CharField(max_length=255)
@@ -40,8 +42,8 @@ class Work(models.Model):
     """ Work to be attached to a task """
     description = models.TextField(blank=True)
     date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    hours = models.IntegerField()
+    minutes = models.IntegerField()
     task = models.ForeignKey(Task)
     creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
     tid = models.IntegerField()
@@ -54,8 +56,8 @@ class Work(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.task.title, self.date)
 
-    @property
-    def duration(self):
-        end_dt = datetime.combine(self.date, self.end_time)
-        start_dt = datetime.combine(self.date, self.start_time)
-        return end_dt - start_dt
+    #@property
+    #def duration(self):
+    #    end_dt = datetime.combine(self.date, self.end_time)
+    #    start_dt = datetime.combine(self.date, self.start_time)
+    #    return end_dt - start_dt

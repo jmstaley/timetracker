@@ -19,17 +19,10 @@
       {% endif %}
     </p>
     <p>
-      <label form="id_start_time">Start time:</label>
-      {{ form.start_time }}
-      {% if form.start_time.errors %}
-        <span class="error">{{ form.start_time.errors|join:", " }}</span>
-      {% endif %}
-    </p>
-    <p>
-      <label form="id_end_time">End time:</label>
-      {{ form.end_time }}
-      {% if form.end_time.errors %}
-        <span class="error">{{ form.end_time.errors|join:", " }}</span>
+      <label form="id_duration">Duration:</label>
+      {{ form.duration }}
+      {% if form.duration.errors %}
+        <span class="error">{{ form.duration.errors|join:", " }}</span>
       {% endif %}
     </p>
     <p><input type="submit" value="Save" /></p>
