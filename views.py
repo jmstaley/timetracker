@@ -12,6 +12,13 @@ def index(request):
 
 @login_required
 def dashboard(request):
+    if request.method == 'POST':
+        form = AddTaskShortcut(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.author = request.user
+            new_task.save()
+
     form = AddTaskShortcut(initial={'title': 'Title',
                                     'description': 'Description'})
     tasks = Task.objects.filter(author__id=request.user.id)
@@ -45,7 +52,6 @@ def add_task(request):
 @login_required
 def add_work(request, task_id):
     if request.method == 'POST':
-        from pdb import set_trace; set_trace()
         form = AddWorkForm(data=request.POST)
         if form.is_valid():
             new_work = form.save(commit=False)
