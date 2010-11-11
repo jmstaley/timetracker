@@ -4,8 +4,6 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 
-from fields import DurationWidget
-
 class Task(models.Model):
     """ Simple task for tracking time worked """
     title = models.CharField(max_length=255)

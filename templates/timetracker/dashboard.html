@@ -1,5 +1,10 @@
 {% extends "timetracker/base.html" %}
 {% block content %}
+  <div class="addtaskform">
+    <form action="{% url dashboard %}" method="POST">
+      {{ form.title}} {{ form.description }} {{ form.due_date }} <input type="submit" value="Add Task" />
+    </form>
+  </div>
   <table class="taskstable">
     <tr>
       <th>Task</th>

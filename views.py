@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 from models import Task
-from forms import AddTaskForm, AddWorkForm
+from forms import AddTaskForm, AddWorkForm, AddTaskShortcut
 
 def index(request):
     return render_to_response('timetracker/index.html',
@@ -12,9 +12,12 @@ def index(request):
 
 @login_required
 def dashboard(request):
+    form = AddTaskShortcut(initial={'title': 'Title',
+                                    'description': 'Description'})
     tasks = Task.objects.filter(author__id=request.user.id)
     return render_to_response('timetracker/dashboard.html',
-                              {'tasks': tasks},
+                              {'tasks': tasks,
+                               'form': form},
                               context_instance = RequestContext(request))
 
 @login_required

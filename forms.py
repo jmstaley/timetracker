@@ -1,8 +1,15 @@
 from django.forms import ModelForm
+from django.forms.widgets import TextInput
 from django.forms.extras.widgets import SelectDateWidget
 
 from models import Task, Work
-from fields import DurationField
+
+class AddTaskShortcut(ModelForm):
+    class Meta:
+        model = Task
+        exclude = ('task', 'tid')
+        widgets = {'due_date': SelectDateWidget(),
+                   'description': TextInput()}
 
 class AddTaskForm(ModelForm):
     class Meta:
@@ -11,9 +18,7 @@ class AddTaskForm(ModelForm):
         widgets = {'due_date': SelectDateWidget()}
 
 class AddWorkForm(ModelForm):
-    duration = DurationField()
-
     class Meta:
         model = Work
-        exclude = ('task', 'tid', 'hour', 'minute')
+        exclude = ('task', 'tid')
         widgets = {'date': SelectDateWidget()}
