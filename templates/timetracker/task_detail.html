@@ -17,7 +17,7 @@
     {% for work in task.work %}
       <tr>
         <td>{{ work.description }}</td> 
-        <td>{{ work.duration }}</td>
+        <td>{{ work.length }}</td>
         <td>{{ work.date|date:"d/m/Y" }}</td>
       </tr>
     {% endfor %}

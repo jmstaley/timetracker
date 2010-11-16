@@ -21,12 +21,13 @@ class Task(models.Model):
         self.uid = len(current_tasks)+1
         super(Task, self).save(force_insert, force_update)
 
+    @property
     def total_time_worked(self):
         work = self.work()
-        total_time = timedelta()
+        total_time = 0
         for w in work:
             total_time += w.duration
-        return total_time
+        return str(timedelta(seconds=total_time))
 
     def work(self):
         work = Work.objects.filter(task=self)
@@ -40,8 +41,7 @@ class Work(models.Model):
     """ Work to be attached to a task """
     description = models.TextField(blank=True)
     date = models.DateField()
-    hours = models.IntegerField()
-    minutes = models.IntegerField()
+    duration = models.IntegerField(blank=True)
     task = models.ForeignKey(Task)
     creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
     tid = models.IntegerField()
@@ -54,8 +54,6 @@ class Work(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.task.title, self.date)
 
-    #@property
-    #def duration(self):
-    #    end_dt = datetime.combine(self.date, self.end_time)
-    #    start_dt = datetime.combine(self.date, self.start_time)
-    #    return end_dt - start_dt
+    @property
+    def length(self):
+        return str(timedelta(seconds=self.duration))

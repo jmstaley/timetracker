@@ -45,7 +45,6 @@ def add_task(request):
 @login_required
 def add_work(request, task_id):
     if request.method == 'POST':
-        from pdb import set_trace; set_trace()
         form = AddWorkForm(data=request.POST)
         if form.is_valid():
             new_work = form.save(commit=False)
