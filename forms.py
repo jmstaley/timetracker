@@ -8,7 +8,7 @@ from fields import DurationField
 class AddTaskShortcut(ModelForm):
     class Meta:
         model = Task
-        exclude = ('task', 'tid')
+        exclude = ('author', 'uid')
         widgets = {'due_date': SelectDateWidget(),
                    'description': TextInput()}
 
