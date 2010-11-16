@@ -2,19 +2,40 @@
 {% block content %}
   <div class="addtaskform">
     <form action="{% url dashboard %}" method="POST">
-      {{ form.title}} {{ form.description }} {{ form.due_date }} <input type="submit" value="Add Task" />
+      <fieldset>
+        <legend>Add Task</legend>
+        <div class="shortcutfield">
+          <label for="id_title">Title</label><br />
+          {{ form.title}} 
+        </div>
+        <div class="shortcutfield">
+          <label for="id_description">Description</label><br />
+          {{ form.description }} 
+        </div>
+        <div class="shortcutfield">
+          <label for="id_due_date">Due Date</label><br />
+          {{ form.due_date }} 
+        </div>
+        <div class="shortcutfield">
+          <br />
+          <input type="submit" value="Add Task" />
+        </div>
+      </fieldset>
     </form>
   </div>
   <table class="taskstable">
     <tr>
       <th>Task</th>
       <th>Time spent</th>
+      <th>Due date</th>
     </tr>
     {% for task in tasks %}
       <tr class="taskrow {% cycle 'even' 'odd' %}">
         <td class="task">{{ task.title }}</td> 
         <td class="time">{{ task.total_time_worked }}</td>
+        <td class="due_date">{{ task.due_date|date:"d/m/Y" }}</td>
         <td class="edit"><a href="{{ task.get_absolute_url }}">edit</a></td>
+        <td class="remove"><a href="{% url remove_task task.id %}">remove</a></td>
       </tr>
     {% endfor %}
   </table>

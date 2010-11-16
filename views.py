@@ -2,6 +2,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from models import Task
 from forms import AddTaskForm, AddWorkForm, AddTaskShortcut
@@ -19,9 +20,8 @@ def dashboard(request):
             new_task.author = request.user
             new_task.save()
 
-    form = AddTaskShortcut(initial={'title': 'Title',
-                                    'description': 'Description'})
-    tasks = Task.objects.filter(author__id=request.user.id)
+    form = AddTaskShortcut()
+    tasks = Task.objects.filter(author__id=request.user.id).order_by('due_date')
     return render_to_response('timetracker/dashboard.html',
                               {'tasks': tasks,
                                'form': form},
@@ -64,3 +64,8 @@ def add_work(request, task_id):
     return render_to_response('timetracker/add_work.html',
                               {'form': form},
                               context_instance = RequestContext(request))
+@login_required
+def remove_task(request, task_id):
+    t = Task.objects.get(id=task_id)
+    t.delete()
+    return HttpResponseRedirect(reverse('dashboard'))

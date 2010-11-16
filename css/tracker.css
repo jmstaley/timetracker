@@ -103,3 +103,13 @@ table.taskstable tr.taskrow td.time {
 table.taskstable tr.taskrow td.edit {
   text-align: center;
 }
+
+div.addtaskform {
+  margin: 0px auto 0px auto;
+  width: 50%;
+}
+
+div.shortcutfield {
+  float: left;
+  margin: 0px 2px 0px 2px;
+}
