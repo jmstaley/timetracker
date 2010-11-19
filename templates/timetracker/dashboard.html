@@ -33,8 +33,8 @@
       <tr class="taskrow {% cycle 'even' 'odd' %}">
         <td class="task">{{ task.title }}</td> 
         <td class="time">{{ task.total_time_worked }}</td>
-        <td class="due_date">{{ task.due_date|date:"d/m/Y" }}</td>
-        <td class="edit"><a href="{{ task.get_absolute_url }}">edit</a></td>
+        <td class="duedate">{{ task.due_date|date:"d/m/Y" }}</td>
+        <td class="edit"><a href="{{ task.get_absolute_url }}">add work</a></td>
         <td class="remove"><a href="{% url remove_task task.id %}">remove</a></td>
       </tr>
     {% endfor %}

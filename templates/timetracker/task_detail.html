@@ -8,17 +8,19 @@
 <h3>Work</h3>
 <div id="workdetails">
   <p><a href="{% url add_work task.id %}">Add Work</a></p>
-  <table>
+  <table class="worktable">
     <tr>
+      <th>Date</th>
       <th>Description</th>
       <th>Duration</th>
-      <th>Date</th>
     </tr>
     {% for work in task.work %}
-      <tr>
-        <td>{{ work.description }}</td> 
-        <td>{{ work.length }}</td>
-        <td>{{ work.date|date:"d/m/Y" }}</td>
+      <tr class="workrow {% cycle 'even' 'odd' %}">
+        <td class="date">{{ work.date|date:"d/m/Y" }}</td>
+        <td class="description">{{ work.description }}</td> 
+        <td class="duration">{{ work.length }}</td>
+        <td class="edit"><a href="{% url edit_work task.id work.id %}">edit</a></td>
+        <td class="remove"><a href="#">remove</a></td>
       </tr>
     {% endfor %}
   </table>

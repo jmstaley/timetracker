@@ -83,14 +83,17 @@ table.taskstable a:hover {
   text-decoration: none;
 }
 
+table.worktable tr.even,
 table.taskstable tr.even {
   background-color: #dddddd;
 }
 
+table.worktable tr.odd,
 table.taskstable tr.odd {
   background-color: #eeeeee;
 }
 
+table.worktable tr.workrow td,
 table.taskstable tr.taskrow td {
   padding: 5px;
 }
@@ -100,8 +103,14 @@ table.taskstable tr.taskrow td.time {
   width: 150px;
 }
 
+table.taskstable tr.taskrow td.remove,
+table.taskstable tr.taskrow td.duedate,
 table.taskstable tr.taskrow td.edit {
   text-align: center;
+}
+
+table.worktable tr.workrow td.duration {
+  text-align: right;
 }
 
 div.addtaskform {

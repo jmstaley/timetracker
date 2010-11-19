@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from models import Task
+from models import Task, Work
 from forms import AddTaskForm, AddWorkForm, AddTaskShortcut
 
 def index(request):
@@ -64,6 +64,19 @@ def add_work(request, task_id):
     return render_to_response('timetracker/add_work.html',
                               {'form': form},
                               context_instance = RequestContext(request))
+@login_required
+def edit_work(request, task_id, work_id):
+    work = Work.objects.get(id=work_id, task__id=task_id)
+    hours, minutes = work.length.split(':')[:2]
+    data = {'description': work.description,
+            'date': work.date,
+            'duration_0': hours,
+            'duration_1': minutes}
+    form = AddWorkForm(data)
+    return render_to_response('timetracker/add_work.html',
+                              {'form': form},
+                              context_instance = RequestContext(request))
+
 @login_required
 def remove_task(request, task_id):
     t = Task.objects.get(id=task_id)
