@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_protect
 
 from models import Task, Work
 from forms import AddTaskForm, AddWorkForm, AddTaskShortcut
@@ -11,6 +12,7 @@ def index(request):
     return render_to_response('timetracker/index.html',
                               context_instance = RequestContext(request))
 
+@csrf_protect
 @login_required
 def dashboard(request):
     if request.method == 'POST':
@@ -21,19 +23,32 @@ def dashboard(request):
             new_task.save()
 
     form = AddTaskShortcut()
-    tasks = Task.objects.filter(author__id=request.user.id).order_by('due_date')
+    tasks = Task.open.filter(author__id=request.user.id).order_by('due_date')
     return render_to_response('timetracker/dashboard.html',
                               {'tasks': tasks,
                                'form': form},
                               context_instance = RequestContext(request))
 
+@csrf_protect
 @login_required
 def task_detail(request, task_id):
-    task = Task.objects.get(uid=task_id, author__id=request.user.id)
+    if request.method == 'POST':
+        form = AddWorkForm(data=request.POST)
+        if form.is_valid():
+            new_work = form.save(commit=False)
+            task = Task.objects.get(id=task_id, author__id=request.user.id)
+            new_work.task = task
+            new_work.save()
+    else:
+        form = AddWorkForm()
+
+    task = Task.objects.get(id=task_id, author__id=request.user.id)
     return render_to_response('timetracker/task_detail.html', 
-                              {'task': task},
+                              {'task': task,
+                               'form': form},
                               context_instance = RequestContext(request))
 
+@csrf_protect
 @login_required
 def add_task(request):
     if request.method == 'POST':
@@ -49,13 +64,14 @@ def add_task(request):
                               {'form': form},
                               context_instance = RequestContext(request))
 
+@csrf_protect
 @login_required
 def add_work(request, task_id):
     if request.method == 'POST':
         form = AddWorkForm(data=request.POST)
         if form.is_valid():
             new_work = form.save(commit=False)
-            task = Task.objects.get(uid=task_id, author__id=request.user.id)
+            task = Task.objects.get(id=task_id, author__id=request.user.id)
             new_work.task = task
             new_work.save()
             return HttpResponseRedirect(task.get_absolute_url())
@@ -64,6 +80,8 @@ def add_work(request, task_id):
     return render_to_response('timetracker/add_work.html',
                               {'form': form},
                               context_instance = RequestContext(request))
+
+@csrf_protect
 @login_required
 def edit_work(request, task_id, work_id):
     work = Work.objects.get(id=work_id, task__id=task_id)
@@ -82,3 +100,10 @@ def remove_task(request, task_id):
     t = Task.objects.get(id=task_id)
     t.delete()
     return HttpResponseRedirect(reverse('dashboard'))
+
+@login_required
+def complete_task(request, task_id):
+    t = Task.objects.get(id=task_id)
+    t.complete()
+    return HttpResponseRedirect(reverse('dashboard'))
+

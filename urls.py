@@ -14,5 +14,8 @@ urlpatterns = patterns('timetracker.views',
                       url(r'^task/detail/(?P<task_id>\d+)/remove',
                           'remove_task',
                           name='remove_task'),
+                      url(r'^task/detail/(?P<task_id>\d+)/complete',
+                          'complete_task',
+                          name='complete_task'),
                       url(r'^task/add', 'add_task', name='add_task'),
                       url(r'', 'index', name='tracker_index'),)

@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 
+from managers import FinishedTaskManager, OpenTaskManager
+
 class Task(models.Model):
     """ Simple task for tracking time worked """
     title = models.CharField(max_length=255)
@@ -12,14 +14,27 @@ class Task(models.Model):
     due_date = models.DateField(blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
     uid = models.IntegerField()
+    completed = models.BooleanField(blank=True, default=False)
+
+    # set managers
+    finished = FinishedTaskManager()
+    open = OpenTaskManager()
+    objects = models.Manager()
     
     def __unicode__(self):
         return u'%s' % self.title
 
     def save(self, force_insert=False, force_update=False):
-        current_tasks = Task.objects.filter(author__id=self.author.id)
-        self.uid = len(current_tasks)+1
+        last = Task.objects.filter(author__id=self.author.id).order_by('uid').reverse()[:1]
+        if last:
+            self.uid = last[0].uid+1
+        else:
+            self.uid = 1
         super(Task, self).save(force_insert, force_update)
+
+    def complete(self):
+        self.completed = True
+        super(Task, self).save()
 
     @property
     def total_time_worked(self):
@@ -35,7 +50,7 @@ class Task(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('task_detail', [], {'task_id': self.uid})
+        return ('task_detail', [], {'task_id': self.id})
 
 class Work(models.Model):
     """ Work to be attached to a task """

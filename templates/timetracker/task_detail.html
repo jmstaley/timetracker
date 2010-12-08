@@ -7,7 +7,29 @@
 </div>
 <h3>Work</h3>
 <div id="workdetails">
-  <p><a href="{% url add_work task.id %}">Add Work</a></p>
+  <div class="addworkform">
+    <form method="POST">{% csrf_token %}
+      <fieldset>
+        <legend>Add Work</legend>
+        <div class="shortcutfield">
+          <label for="id_description">Description</label><br />
+          {{ form.description }} 
+        </div>
+        <div class="shortcutfield">
+          <label for="id_date">Date</label><br />
+          {{ form.date }} 
+        </div>
+        <div class="shortcutfield">
+          <label for="id_duration">Duration</label><br />
+          {{ form.duration }} 
+        </div>
+        <div class="shortcutfield">
+          <br />
+          <input type="submit" value="Add" />
+        </div>
+      </fieldset>
+    </form>
+  </div>
   <table class="worktable">
     <tr>
       <th>Date</th>

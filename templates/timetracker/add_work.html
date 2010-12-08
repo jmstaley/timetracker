@@ -3,7 +3,7 @@
 {% block content %}
   <h2>Add Task</h2>
   <p>Use the form below to add a new work.</p>
-  <form method="post">
+  <form method="post">{% csrf_token %}
     <p>
       <label form="id_description">Description:</label>
       {{ form.description }}

@@ -23,4 +23,5 @@ class AddWorkForm(ModelForm):
     class Meta:
         model = Work
         exclude = ('task', 'tid')
-        widgets = {'date': SelectDateWidget()}
+        widgets = {'date': SelectDateWidget(),
+                   'description': TextInput()}

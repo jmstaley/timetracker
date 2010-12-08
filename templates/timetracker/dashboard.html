@@ -1,7 +1,7 @@
 {% extends "timetracker/base.html" %}
 {% block content %}
   <div class="addtaskform">
-    <form action="{% url dashboard %}" method="POST">
+    <form action="{% url dashboard %}" method="POST">{% csrf_token %}
       <fieldset>
         <legend>Add Task</legend>
         <div class="shortcutfield">
@@ -36,6 +36,7 @@
         <td class="duedate">{{ task.due_date|date:"d/m/Y" }}</td>
         <td class="edit"><a href="{{ task.get_absolute_url }}">add work</a></td>
         <td class="remove"><a href="{% url remove_task task.id %}">remove</a></td>
+        <td class="complete"><a href="{% url complete_task task.id %}">finished</a></td>
       </tr>
     {% endfor %}
   </table>
