@@ -14,7 +14,7 @@ def index(request):
 
 @csrf_protect
 @login_required
-def dashboard(request):
+def dashboard(request, filter=''):
     if request.method == 'POST':
         form = AddTaskShortcut(data=request.POST)
         if form.is_valid():
@@ -23,7 +23,10 @@ def dashboard(request):
             new_task.save()
 
     form = AddTaskShortcut()
-    tasks = Task.open.filter(author__id=request.user.id).order_by('due_date')
+    if filter == 'finished':
+        tasks = Task.finished.filter(author__id=request.user.id).order_by('due_date')
+    else:
+        tasks = Task.live.filter(author__id=request.user.id).order_by('due_date')
     return render_to_response('timetracker/dashboard.html',
                               {'tasks': tasks,
                                'form': form},

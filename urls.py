@@ -1,7 +1,9 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('timetracker.views',
-                      url(r'^dashboard', 'dashboard', name='dashboard'),
+                      url(r'^dashboard/$', 'dashboard', name='dashboard'),
+                      url(r'^dashboard/(?P<filter>\w+)/$', 'dashboard',
+                          name="dashboard_filter"),
                       url(r'^task/detail/(?P<task_id>\d+)/add', 
                           'add_work',
                           name='add_work'),

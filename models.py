@@ -8,17 +8,26 @@ from managers import FinishedTaskManager, OpenTaskManager
 
 class Task(models.Model):
     """ Simple task for tracking time worked """
+
+    OPEN = 1
+    FINISHED = 2
+
+    STATUS_CHOICES = (
+        (OPEN, 'open'),
+        (FINISHED, 'finished')
+    )
+
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     author = models.ForeignKey(User)
     due_date = models.DateField(blank=True, null=True)
     creation_date = models.DateTimeField(auto_now_add=True, auto_now=True)
     uid = models.IntegerField()
-    completed = models.BooleanField(blank=True, default=False)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=OPEN)
 
     # set managers
     finished = FinishedTaskManager()
-    open = OpenTaskManager()
+    live = OpenTaskManager()
     objects = models.Manager()
     
     def __unicode__(self):
@@ -33,7 +42,7 @@ class Task(models.Model):
         super(Task, self).save(force_insert, force_update)
 
     def complete(self):
-        self.completed = True
+        self.status = self.FINISHED
         super(Task, self).save()
 
     @property
