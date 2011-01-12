@@ -1,30 +1,32 @@
 {% extends "timetracker/base.html" %}
 {% block title %}Timetracker|Add Task{% endblock %}
 {% block content %}
-  <h2>Add Task</h2>
-  <p>Use the form below to add a new task.</p>
-  <form method="post">{% csrf_token %}
-    <p>
-      <label form="id_title">Title:</label>
-      {{ form.title}}
-      {% if form.title.errors %}
-        <span class="error">{{ form.title.errors|join:", " }}</span>
-      {% endif %}
-    </p>
-    <p>
-      <label form="id_description">Description:</label>
-      {{ form.description }}
-      {% if form.description.errors %}
-        <span class="error">{{ form.description.errors|join:", " }}</span>
-      {% endif %}
-    </p>
-    <p>
-      <label form="id_due_date">Due date:</label>
-      {{ form.due_date }}
-      {% if form.due_date.errors %}
-        <span class="error">{{ form.due_date.errors|join:", " }}</span>
-      {% endif %}
-    </p>
-    <p><input type="submit" value="Save" /></p>
-  </form>
+  <div id="addtaskform">
+    <h2>Add Task</h2>
+    <p>Use the form below to add a new task.</p>
+    <form method="post">{% csrf_token %}
+      <p>
+        <label form="id_title">Title:</label>
+        {{ form.title}}
+        {% if form.title.errors %}
+          <span class="error">{{ form.title.errors|join:", " }}</span>
+        {% endif %}
+      </p>
+      <p>
+        <label form="id_description">Description:</label>
+        {{ form.description }}
+        {% if form.description.errors %}
+          <span class="error">{{ form.description.errors|join:", " }}</span>
+        {% endif %}
+      </p>
+      <p>
+        <label form="id_due_date">Due date:</label>
+        {{ form.due_date }}
+        {% if form.due_date.errors %}
+          <span class="error">{{ form.due_date.errors|join:", " }}</span>
+        {% endif %}
+      </p>
+      <p><input type="submit" value="Save" /></p>
+    </form>
+  </div>
 {% endblock %}

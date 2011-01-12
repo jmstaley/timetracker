@@ -1,6 +1,6 @@
 {% extends "timetracker/base.html" %}
 {% block content %}
-  <div class="addtaskform">
+  <div id="addtaskform" class="hide">
     <form action="{% url dashboard %}" method="POST">{% csrf_token %}
       <fieldset>
         <legend>Add Task</legend>

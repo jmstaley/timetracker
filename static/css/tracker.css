@@ -113,12 +113,12 @@ table.worktable tr.workrow td.duration {
   text-align: right;
 }
 
-div.addtaskform {
+div#addtaskform {
   margin: 0px auto 0px auto;
   width: 50%;
 }
 
 div.shortcutfield {
-  float: left;
+  /*float: left;*/
   margin: 0px 2px 0px 2px;
 }
