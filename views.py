@@ -25,6 +25,8 @@ def dashboard(request, filter=''):
     form = AddTaskShortcut()
     if filter == 'finished':
         tasks = Task.finished.filter(author__id=request.user.id).order_by('due_date')
+    elif filter == 'all':
+        tasks = Task.objects.filter(author__id=request.user.id).order_by('due_date')
     else:
         tasks = Task.live.filter(author__id=request.user.id).order_by('due_date')
     return render_to_response('timetracker/dashboard.html',

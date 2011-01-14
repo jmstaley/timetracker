@@ -1,4 +1,9 @@
 {% extends "timetracker/base.html" %}
+
+{% block nav %}
+  <li class="last"><a id="addlink" href="{% url add_task %}">add task</a></li>
+{% endblock %}
+
 {% block content %}
   <div id="addtaskform" class="hide">
     <form action="{% url dashboard %}" method="POST">{% csrf_token %}
@@ -23,21 +28,28 @@
       </fieldset>
     </form>
   </div>
-  <table class="taskstable">
-    <tr>
-      <th>Task</th>
-      <th>Time spent</th>
-      <th>Due date</th>
-    </tr>
-    {% for task in tasks %}
-      <tr class="taskrow {% cycle 'even' 'odd' %}">
-        <td class="task">{{ task.title }}</td> 
-        <td class="time">{{ task.total_time_worked }}</td>
-        <td class="duedate">{{ task.due_date|date:"d/m/Y" }}</td>
-        <td class="edit"><a href="{{ task.get_absolute_url }}">add work</a></td>
-        <td class="remove"><a href="{% url remove_task task.id %}">remove</a></td>
-        <td class="complete"><a href="{% url complete_task task.id %}">finished</a></td>
+  <div id="filter">
+    <p>Filter: <a href="{% url dashboard %}">Open</a> <span>|</span> <a href="{% url dashboard_filter "all"%}">All</a> <span>|</span> <a href="{% url dashboard_filter "finished" %}">Finished</a></p>
+  </div>
+  <table id="tasktable" class="taskstable tablesorter">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Time spent</th>
+        <th>Due date</th>
       </tr>
-    {% endfor %}
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+        <tr class="taskrow {% cycle 'even' 'odd' %}">
+          <td class="task">{{ task.title }}</td> 
+          <td class="time">{{ task.total_time_worked }}</td>
+          <td class="duedate">{{ task.due_date|date:"d/m/Y" }}</td>
+          <td class="edit"><a href="{{ task.get_absolute_url }}"><img src="/static/images/table.png" alt="view detail" title="view detail" /></a></td>
+          <td class="remove"><a href="{% url remove_task task.id %}"><img src="/static/images/bin.png" alt="delete task" title="delete task" /></a></td>
+          <td class="complete"><a href="{% url complete_task task.id %}"><img src="/static/images/tick.png" alt="finish task" title="finish task" /></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
   </table>
 {% endblock %}

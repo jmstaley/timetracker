@@ -71,12 +71,16 @@ div#user_tools li.last {
 table.taskstable {
   margin: 0 auto 0 auto;
   padding: 10px;
-  width: 50%;
+  width: 55%;
 }
 
 table.taskstable a {
   color: #000000;
   text-decoration: underline;
+}
+
+table.taskstable a img {
+  border: none;
 }
 
 table.taskstable a:hover {
@@ -114,6 +118,7 @@ table.worktable tr.workrow td.duration {
 }
 
 div#addtaskform {
+  display: none;
   margin: 0px auto 0px auto;
   width: 50%;
 }
@@ -121,4 +126,27 @@ div#addtaskform {
 div.shortcutfield {
   /*float: left;*/
   margin: 0px 2px 0px 2px;
+}
+
+div#addworkform {
+  display: none;
+}
+
+th.header {
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+th.headerSortDown {
+  background: url('/static/images/bullet_arrow_down.png') no-repeat 100% 50%;
+}
+
+th.headerSortUp {
+  background: url('/static/images/bullet_arrow_up.png') no-repeat 100% 50%;
+}
+
+div#filter {
+  margin: 0px auto 0px auto;
+  text-align: right;
+  width: 55%;
 }

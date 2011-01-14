@@ -3,6 +3,7 @@
   <head>
     <link href="/static/css/tracker.css" rel="stylesheet" type="text/css" />
     <script src="http://code.jquery.com/jquery-1.4.4.min.js" type="text/javascript"></script>
+    <script src="/static/js/tablesorter.js" type="text/javascript"></script>
     <script src="/static/js/ui.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function() {
@@ -22,7 +23,8 @@
           {% if user.is_authenticated %}
             <li>{{ user.username }}</li>
             <li><a href="{% url dashboard %}">dashboard</a></li>
-            <li class="last"><a id="addlink" href="{% url add_task %}">add task</a></li>
+            {% block nav %}
+            {% endblock %}
           {% else %}
             <li><a href="#">login</a></li>
           {% endif %}

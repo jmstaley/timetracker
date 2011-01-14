@@ -1,4 +1,7 @@
 {% extends "timetracker/base.html" %}
+{% block nav %}
+  <li class="last"><a id="addlink" href="{% url add_work task.id %}">add work</a></li>
+{% endblock %}
 {% block content %}
 <h2 class="header">{{ task.title }}</h2>
 <div id="taskdetails">
@@ -7,7 +10,7 @@
 </div>
 <h3>Work</h3>
 <div id="workdetails">
-  <div class="addworkform">
+  <div id="addworkform">
     <form method="POST">{% csrf_token %}
       <fieldset>
         <legend>Add Work</legend>
